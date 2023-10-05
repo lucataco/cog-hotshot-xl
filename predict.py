@@ -8,6 +8,7 @@ import sys
 sys.path.extend(['/Hotshot-XL'])
 
 import torch
+import tempfile
 from hotshot_xl.pipelines.hotshot_xl_pipeline import HotshotXLPipeline
 from hotshot_xl.pipelines.hotshot_xl_controlnet_pipeline import HotshotXLControlNetPipeline
 from hotshot_xl.models.unet import UNet3DConditionModel
@@ -131,7 +132,7 @@ class Predictor(BasePredictor):
         output = "output.gif"
         save_as_gif(images, output, duration=video_duration // video_length)
 
-        out_path = "output.mp4"
+        out_path = Path(tempfile.mkdtemp()) / "out.mp4"
         os.system("ffmpeg -i output.gif -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
 
         return Path(out_path)
