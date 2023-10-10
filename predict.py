@@ -26,7 +26,7 @@ SCHEDULERS = {
     'EulerDiscreteScheduler': EulerDiscreteScheduler,
 }
 
-HOTSHOTXL_CACHE = "./hotshot-xl"
+HOTSHOTXL_CACHE = "hotshot-xl"
 
 
 class Predictor(BasePredictor):
@@ -92,14 +92,9 @@ class Predictor(BasePredictor):
             "torch_dtype": torch.float16,
             "use_safetensors": True
         }
-        PipelineClass = HotshotXLPipeline
 
-        pipe = PipelineClass.from_pretrained(
-            MODEL_NAME, 
-            **pipe_line_args,
-            cache_dir=MODEL_CACHE
-        ).to(device)
-        
+        pipe = self.pipe
+
         SchedulerClass = SCHEDULERS[scheduler]
         if SchedulerClass is not None:
             pipe.scheduler = SchedulerClass.from_config(pipe.scheduler.config)
