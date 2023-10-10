@@ -6,7 +6,7 @@ This is an implementation of the [hotshotco/Hotshot-XL](https://github.com/hotsh
 
 Before running the image, you need to fetch the weights:
 
-    cog run python download-weights.py
+    cog run python ./scripts/download_weights.py
 
 You can then run the image with:
 
