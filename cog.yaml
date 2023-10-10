@@ -70,9 +70,7 @@ build:
 
   run:
     - apt-get update && apt-get install -y git-lfs ffmpeg
-    - git lfs install
     - git clone https://github.com/hotshotco/Hotshot-XL /Hotshot-XL
-    - git clone https://huggingface.co/hotshotco/SDXL-512 /Hotshot-XL/SDXL-512
 
 
 # predict.py defines how predictions are run on your model

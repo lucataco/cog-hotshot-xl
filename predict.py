@@ -26,20 +26,16 @@ SCHEDULERS = {
     'EulerDiscreteScheduler': EulerDiscreteScheduler,
 }
 
-MODEL_NAME = "hotshotco/Hotshot-XL"
-MODEL_CACHE = "model-cache"
+HOTSHOTXL_CACHE = "./hotshot-xl"
+
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
         """Load the model into memory to make running multiple predictions efficient"""
-        pipe_line_args = {
-            "torch_dtype": torch.float16,
-            "use_safetensors": True
-        }
         self.pipe = HotshotXLPipeline.from_pretrained(
-            MODEL_NAME, 
-            **pipe_line_args,
-            cache_dir=MODEL_CACHE
+            HOTSHOTXL_CACHE,
+            torch_dtype=torch.float16,
+            use_safetensors=True
         ).to('cuda')
 
     def to_pil_images(self, video_frames: torch.Tensor, output_type='pil'):
