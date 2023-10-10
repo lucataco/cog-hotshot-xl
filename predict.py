@@ -86,13 +86,6 @@ class Predictor(BasePredictor):
         video_length = 8
         video_duration = 1000
         # scheduler = "EulerAncestralDiscreteScheduler"
-
-        device = torch.device("cuda")
-        pipe_line_args = {
-            "torch_dtype": torch.float16,
-            "use_safetensors": True
-        }
-
         pipe = self.pipe
 
         SchedulerClass = SCHEDULERS[scheduler]
