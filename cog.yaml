@@ -67,10 +67,10 @@ build:
     - "wandb==0.15.11"
     - "zipp==3.17.0"
     - "xformers"
+    - "git+https://github.com/hotshotco/Hotshot-XL"
 
   run:
     - apt-get update && apt-get install -y git-lfs ffmpeg
-    - git clone https://github.com/hotshotco/Hotshot-XL /Hotshot-XL
 
 
 # predict.py defines how predictions are run on your model

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from diffusers import DiffusionPipeline
+from hotshot_xl.pipelines.hotshot_xl_pipeline import HotshotXLPipeline
 import torch
 
-pipe = DiffusionPipeline.from_pretrained(
-    "hotshotco/SDXL-512",
+pipe = HotshotXLPipeline.from_pretrained(
+    "hotshotco/Hotshot-XL",
     torch_dtype=torch.float16,
     use_safetensors=True
 )
