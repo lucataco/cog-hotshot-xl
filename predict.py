@@ -67,16 +67,15 @@ class Predictor(BasePredictor):
         steps: int = Input(
             description="Number of denoising steps", ge=1, le=500, default=30
         ),
+        mp4: bool = Input(
+            description="Save as mp4, False for GIF", default=False
+        ),
         seed: int = Input(
             description="Random seed. Leave blank to randomize the seed", default=None
         ),
     ) -> Path:
         """Run a single prediction on the model"""
-        device = torch.device("cuda")
-
         # Default text2Gif parameters
-        # seed = 455
-        # steps = 30
         width = 672
         height = 384
         target_width = 512
@@ -85,7 +84,6 @@ class Predictor(BasePredictor):
         og_height = 1080
         video_length = 8
         video_duration = 1000
-        # scheduler = "EulerAncestralDiscreteScheduler"
         pipe = self.pipe
 
         SchedulerClass = SCHEDULERS[scheduler]
@@ -113,10 +111,11 @@ class Predictor(BasePredictor):
 
         images = self.to_pil_images(images, output_type="pil")
 
-        output = "output.gif"
-        save_as_gif(images, output, duration=video_duration // video_length)
+        out_path = "output.gif"
+        save_as_gif(images, out_path, duration=video_duration // video_length)
 
-        out_path = Path(tempfile.mkdtemp()) / "out.mp4"
-        os.system("ffmpeg -i output.gif -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
+        if mp4:
+            out_path = Path(tempfile.mkdtemp()) / "out.mp4"
+            os.system("ffmpeg -i output.gif -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
 
         return Path(out_path)
