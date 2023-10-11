@@ -2,7 +2,13 @@
 
 This is an implementation of the [hotshotco/Hotshot-XL](https://github.com/hotshotco/hotshot-xl) as a Cog model. [Cog packages machine learning models as standard containers.](https://github.com/replicate/cog)
 
-Run predictions:
+## Basic usage
+
+Before running the image, you need to fetch the weights:
+
+    cog run python ./scripts/download_weights.py
+
+You can then run the image with:
 
     cog predict -i prompt="go-pro video of a polar bear diving in the ocean, 8k, HD, dslr, nature footage" -i seed=6226
 
