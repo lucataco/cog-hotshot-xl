@@ -56,6 +56,20 @@ class Predictor(BasePredictor):
         self,
         prompt: str = Input(description="Input prompt", default="a camel smoking a cigarette, hd, high quality"),
         negative_prompt: str = Input(description="Negative prompt", default="blurry"),
+        width: int = Input(
+            description="Width of the output",
+            default=672,
+            choices=[
+                256, 320, 384, 448, 512, 576, 640, 672, 704, 768, 832, 896, 960, 1024,
+            ],
+        ),
+        height: int = Input(
+            description="Height of the output",
+            default=384,
+            choices=[
+                256, 320, 384, 448, 512, 576, 640, 672, 704, 768, 832, 896, 960, 1024,
+            ],
+        ),
         scheduler: str = Input(
             default="EulerAncestralDiscreteScheduler",
             choices=[
@@ -76,8 +90,6 @@ class Predictor(BasePredictor):
     ) -> Path:
         """Run a single prediction on the model"""
         # Default text2Gif parameters
-        width = 672
-        height = 384
         target_width = 512
         target_height = 512
         og_width = 1920
