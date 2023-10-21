@@ -102,7 +102,7 @@ class Predictor(BasePredictor):
         if SchedulerClass is not None:
             pipe.scheduler = SchedulerClass.from_config(pipe.scheduler.config)
 
-        pipe.enable_xformers_memory_efficient_attention()
+        # pipe.enable_xformers_memory_efficient_attention()
         if seed is None:
             seed = int.from_bytes(os.urandom(2), "big")
         print(f"Using seed: {seed}")
