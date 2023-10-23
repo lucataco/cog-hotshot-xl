@@ -18,12 +18,27 @@ from hotshot_xl.utils import save_as_gif, extract_gif_frames_from_midpoint, scal
 from torch import autocast
 from diffusers import ControlNetModel
 from contextlib import contextmanager
-from diffusers.schedulers.scheduling_euler_ancestral_discrete import EulerAncestralDiscreteScheduler
-from diffusers.schedulers.scheduling_euler_discrete import EulerDiscreteScheduler
+from diffusers import (
+    DDIMScheduler,
+    DPMSolverMultistepScheduler,
+    EulerAncestralDiscreteScheduler,
+    EulerDiscreteScheduler,
+    HeunDiscreteScheduler,
+    PNDMScheduler,
+)
+
+class KarrasDPM:
+    def from_config(config):
+        return DPMSolverMultistepScheduler.from_config(config, use_karras_sigmas=True)
 
 SCHEDULERS = {
+    'DDIMScheduler': DDIMScheduler,
+    'DPMSolverMultistepScheduler': DPMSolverMultistepScheduler,
+    'HeunDiscreteScheduler': HeunDiscreteScheduler,
+    'KarrasDPM': KarrasDPM,
     'EulerAncestralDiscreteScheduler': EulerAncestralDiscreteScheduler,
     'EulerDiscreteScheduler': EulerDiscreteScheduler,
+    'PNDMScheduler': PNDMScheduler,
 }
 
 HOTSHOTXL_CACHE = "hotshot-xl"
@@ -73,8 +88,13 @@ class Predictor(BasePredictor):
         scheduler: str = Input(
             default="EulerAncestralDiscreteScheduler",
             choices=[
+                "DDIMScheduler",
+                "DPMSolverMultistepScheduler",
+                "HeunDiscreteScheduler",
+                "KarrasDPM",
                 "EulerAncestralDiscreteScheduler",
                 "EulerDiscreteScheduler",
+                "PNDMScheduler",
             ],
             description="Select a Scheduler",
         ),
