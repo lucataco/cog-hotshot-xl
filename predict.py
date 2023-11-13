@@ -147,7 +147,10 @@ class Predictor(BasePredictor):
         save_as_gif(images, out_path, duration=video_duration // video_length)
 
         if mp4:
-            out_path = Path(tempfile.mkdtemp()) / "out.mp4"
-            os.system("ffmpeg -i output.gif -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
+            out_dir = Path(tempfile.mkdtemp())
+            out_path = out_dir / "out.mp4"
+            for i, image in enumerate(images):
+                image.save(str(out_dir / f"{i:03}.png"))
+            os.system(f"ffmpeg -pattern_type glob -i '{str(out_dir)}/*.png' -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
 
         return Path(out_path)
