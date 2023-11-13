@@ -151,6 +151,6 @@ class Predictor(BasePredictor):
             out_path = out_dir / "out.mp4"
             for i, image in enumerate(images):
                 image.save(str(out_dir / f"{i:03}.png"))
-            os.system(f"ffmpeg -pattern_type glob -i '{str(out_dir)}/*.png' -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
+            os.system(f"ffmpeg -framerate {video_duration // video_length} -pattern_type glob -i '{str(out_dir)}/*.png' -movflags faststart -pix_fmt yuv420p -qp 17 "+ str(out_path))
 
         return Path(out_path)
