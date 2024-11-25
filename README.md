@@ -1,5 +1,7 @@
 # hotshotco/Hotshot-XL Cog model
 
+[![Try a demo on Replicate](https://replicate.com/lucataco/hotshot-xl/badge)](https://replicate.com/lucataco/hotshot-xl)
+
 This is an implementation of the [hotshotco/Hotshot-XL](https://github.com/hotshotco/hotshot-xl) as a Cog model. [Cog packages machine learning models as standard containers.](https://github.com/replicate/cog)
 
 ## Basic usage
